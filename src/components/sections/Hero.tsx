@@ -3,109 +3,68 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FaTelegram, FaTwitter, FaChartLine } from 'react-icons/fa';
-
-// Relative import to avoid crash
 import GlitchText from '../ui/GlitchText';
 
 export default function Hero() {
   return (
-    // CURTAIN EFFECT LOGIC:
-    // 1. h-screen: Forces this section to take up the full screen height.
-    // 2. sticky top-0: Locks it in place at the top of the viewport.
-    // 3. -z-10: Puts it behind the Origin section (the curtain).
-    <section className="h-screen sticky top-0 -z-10 flex flex-col items-center justify-center text-center px-4 relative overflow-hidden pb-20 bg-[#0a0404]">
+    // Z-INDEX FIX: Changed to 'z-0' (instead of -10) to ensure it's visible.
+    // LAYOUT FIX: 'flex-col justify-center' ensures content is centered on the first screen.
+    <section className="sticky top-0 z-0 h-screen w-full flex flex-col items-center justify-center text-center px-4 bg-[#0a0404] overflow-hidden">
       
-      {/* Background Glow Effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#ff3300] opacity-20 blur-[150px] rounded-full z-0 pointer-events-none"></div>
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#ff3300] opacity-20 blur-[150px] rounded-full pointer-events-none"></div>
 
-      <div className="relative z-10 max-w-5xl w-full flex flex-col items-center gap-8 md:gap-10">
+      <div className="relative z-10 max-w-5xl w-full flex flex-col items-center gap-6">
         
-        {/* 1. Main Image (Fire SHTF) */}
+        {/* 1. THE FIRE IMAGE (Restored) */}
         <motion.div 
-          initial={{ scale: 0.9, opacity: 0 }}
+          initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, type: "spring" }}
-          className="relative w-full max-w-3xl h-56 md:h-80 lg:h-96"
+          transition={{ duration: 0.8 }}
+          className="relative w-full max-w-4xl h-64 md:h-96" // Big height for the logo
         >
           <Image 
-            src="/shtf-fire.png" 
-            alt="$SHTF Explosion"
+            src="/shtf-fire.png" // Make sure your file is named this!
+            alt="$SHTF Fire Logo"
             fill
-            className="object-contain drop-shadow-[0_10px_30px_rgba(255,50,0,0.5)]"
+            className="object-contain drop-shadow-[0_0_50px_rgba(255,50,0,0.6)]"
             priority
           />
         </motion.div>
 
-        {/* 2. Glitch Title */}
-        <div className="space-y-4 md:space-y-6">
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <GlitchText 
-              text="CHAOS IS CURRENCY" 
-              className="text-4xl md:text-6xl lg:text-7xl"
-            />
-          </motion.div>
+        {/* 2. CHAOS IS CURRENCY Text */}
+        <div className="space-y-4">
+          <GlitchText 
+            text="CHAOS IS CURRENCY" 
+            className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter"
+          />
           
           <motion.p 
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-xl md:text-2xl text-gray-300 font-mono max-w-2xl mx-auto border-l-4 border-[#ff3300] pl-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-xl md:text-2xl text-gray-400 font-mono"
           >
             "When everything dumps, we pump."
           </motion.p>
         </div>
 
-        {/* 3. Buttons */}
+        {/* 3. BUTTONS (Restored) */}
         <motion.div 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-4 mt-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="flex flex-wrap justify-center gap-4 mt-6"
         >
-          {/* Twitter */}
-          <SocialButton 
-            href="https://twitter.com/shtf_meme" 
-            icon={<FaTwitter />} 
-            label="TWITTER" 
-            color="bg-black border-2 border-[#ff3300] text-[#ff3300] hover:bg-[#ff3300] hover:text-black" 
-          />
-          
-          {/* Telegram */}
-          <SocialButton 
-            href="https://t.me/shtf_meme" 
-            icon={<FaTelegram />} 
-            label="TELEGRAM" 
-            color="bg-[#ff3300] border-2 border-[#ff3300] text-black hover:bg-black hover:text-[#ff3300]" 
-          />
-
-          {/* Chart */}
-          <SocialButton 
-            href="https://dexscreener.com/solana/x14VTJnxDiDA4WEVqoQPfp4kUzfwVyD84ULHaHLmoon" 
-            icon={<FaChartLine />} 
-            label="CHART" 
-            color="bg-white border-2 border-white text-black hover:bg-gray-200" 
-          />
+          <a href="https://twitter.com/shtf_meme" className="bg-black border-2 border-[#ff3300] text-[#ff3300] px-8 py-3 rounded-lg font-bold hover:bg-[#ff3300] hover:text-black transition-colors flex items-center gap-2">
+            <FaTwitter /> TWITTER
+          </a>
+          <a href="https://t.me/shtf_meme" className="bg-[#ff3300] text-black px-8 py-3 rounded-lg font-bold hover:bg-white transition-colors flex items-center gap-2">
+            <FaTelegram /> TELEGRAM
+          </a>
         </motion.div>
 
       </div>
     </section>
-  );
-}
-
-// Button Helper Component
-function SocialButton({ href, icon, label, color }: any) {
-  return (
-    <a 
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`${color} flex items-center gap-3 px-6 py-4 rounded-xl font-black text-lg uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all`}
-    >
-      {icon} {label}
-    </a>
   );
 }
