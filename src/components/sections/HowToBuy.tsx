@@ -11,9 +11,8 @@ export default function HowToBuy() {
   ];
 
   return (
-    // CHANGE: Added 'sticky top-0 z-30 min-h-screen bg-[#0a0404]'
-    // This makes it slide over Origin and stack on top.
-    <section className="sticky top-0 z-30 min-h-screen py-24 px-4 bg-[#0a0404] border-t border-[#ff3300]/20 flex flex-col justify-center relative">
+    // FIXED: Changed to 'justify-start' and 'pt-32'
+    <section className="sticky top-0 z-30 min-h-screen w-full bg-[#0a0404] border-t border-[#ff3300]/20 flex flex-col justify-start pt-32 pb-12 px-4 relative">
       <div className="max-w-5xl mx-auto w-full">
         
         <h2 className="text-5xl font-black text-center mb-16 text-[#ff3300] uppercase tracking-tight">

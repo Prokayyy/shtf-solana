@@ -5,14 +5,16 @@ import Image from 'next/image';
 
 export default function Origin() {
   return (
-    // CHANGE 1: 'sticky top-0' makes it hold in place.
-    // CHANGE 2: 'min-h-screen' ensures it fills the whole view.
-    <section className="sticky top-0 z-20 min-h-screen py-24 px-4 bg-[#0a0404] border-t border-[#ff3300]/20 flex items-center overflow-hidden">
+    // FIXED:
+    // 1. Removed 'items-center' (which was centering it vertically).
+    // 2. Added 'pt-32' to push content just below the navbar, but keep it at the top.
+    // 3. 'justify-start' ensures it doesn't float to the middle.
+    <section className="sticky top-0 z-20 min-h-screen w-full bg-[#0a0404] border-t border-[#ff3300]/20 flex flex-col justify-start pt-32 pb-12 px-4 overflow-hidden">
       
       {/* Background Glow */}
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[300px] h-[300px] bg-[#ff3300] opacity-10 blur-[100px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#ff3300] opacity-10 blur-[100px] rounded-full pointer-events-none"></div>
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-20">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start relative z-20">
         
         {/* Left Side: Text */}
         <motion.div 
@@ -43,7 +45,6 @@ export default function Origin() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="relative h-[300px] md:h-[450px] w-full flex justify-center"
         >
-          {/* Ensure 'origin.png' is in your public folder! */}
           <Image 
             src="/origin.png" 
             alt="Origin Image"
