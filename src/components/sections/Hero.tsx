@@ -4,24 +4,28 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FaTelegram, FaTwitter, FaChartLine } from 'react-icons/fa';
 
-// RELATIVE IMPORT (Safe)
+// Relative import to avoid crash
 import GlitchText from '../ui/GlitchText';
 
 export default function Hero() {
   return (
-    <section className="min-h-[85vh] flex flex-col items-center justify-center text-center px-4 relative overflow-hidden pb-20">
+    // CURTAIN EFFECT LOGIC:
+    // 1. h-screen: Forces this section to take up the full screen height.
+    // 2. sticky top-0: Locks it in place at the top of the viewport.
+    // 3. -z-10: Puts it behind the Origin section (the curtain).
+    <section className="h-screen sticky top-0 -z-10 flex flex-col items-center justify-center text-center px-4 relative overflow-hidden pb-20 bg-[#0a0404]">
       
-      {/* Glow Effect */}
+      {/* Background Glow Effect */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#ff3300] opacity-20 blur-[150px] rounded-full z-0 pointer-events-none"></div>
 
-      <div className="relative z-10 max-w-5xl w-full flex flex-col items-center gap-10">
+      <div className="relative z-10 max-w-5xl w-full flex flex-col items-center gap-8 md:gap-10">
         
-        {/* 1. Main Image */}
+        {/* 1. Main Image (Fire SHTF) */}
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, type: "spring" }}
-          className="relative w-full max-w-3xl h-64 md:h-96"
+          className="relative w-full max-w-3xl h-56 md:h-80 lg:h-96"
         >
           <Image 
             src="/shtf-fire.png" 
@@ -32,17 +36,16 @@ export default function Hero() {
           />
         </motion.div>
 
-        {/* 2. Glitch Title & Tagline */}
-        <div className="space-y-6">
+        {/* 2. Glitch Title */}
+        <div className="space-y-4 md:space-y-6">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            {/* The New Glitch Component */}
             <GlitchText 
               text="CHAOS IS CURRENCY" 
-              className="text-4xl md:text-6xl"
+              className="text-4xl md:text-6xl lg:text-7xl"
             />
           </motion.div>
           
@@ -56,7 +59,7 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        {/* 3. Buttons (Now including Chart) */}
+        {/* 3. Buttons */}
         <motion.div 
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -79,7 +82,7 @@ export default function Hero() {
             color="bg-[#ff3300] border-2 border-[#ff3300] text-black hover:bg-black hover:text-[#ff3300]" 
           />
 
-          {/* Chart (New) */}
+          {/* Chart */}
           <SocialButton 
             href="https://dexscreener.com/solana/x14VTJnxDiDA4WEVqoQPfp4kUzfwVyD84ULHaHLmoon" 
             icon={<FaChartLine />} 
@@ -93,7 +96,7 @@ export default function Hero() {
   );
 }
 
-// Reusable Button Helper
+// Button Helper Component
 function SocialButton({ href, icon, label, color }: any) {
   return (
     <a 
